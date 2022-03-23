@@ -1,4 +1,4 @@
-# Qwizard2
+# QWizard
 
 This project was generated using [Nx](https://nx.dev).
 
