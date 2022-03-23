@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "projects": {
+    "core": "packages/core",
+    "forms-example": "packages/forms-example",
+    "forms-example-e2e": "packages/forms-example-e2e",
+    "react": "packages/react"
+  }
+}
