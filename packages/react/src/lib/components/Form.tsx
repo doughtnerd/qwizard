@@ -1,4 +1,4 @@
-import { isFormArray, isFormControl, isFormGroup, validateAbstractControl, validateFormControl, ValidationResultsTree } from '@qwizard/core'
+import { isFormArray, isFormControl, isFormGroup, validateAbstractControl, validateFormControl, ValidationResultsTree } from '@doughtnerd/qwizard-core'
 import React, { InputHTMLAttributes, PropsWithChildren } from 'react'
 import { AbstractFormControlConfig } from '.'
 import { FormArray, FormArrayConfig } from './FormArray'

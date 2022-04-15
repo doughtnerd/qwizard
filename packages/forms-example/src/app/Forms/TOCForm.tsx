@@ -1,4 +1,4 @@
-import { Form, FormConfig } from '@qwizard/react';
+import { Form, FormConfig } from '@doughtnerd/qwizard-react';
 import React from 'react';
 import { MyInput } from '../Inputs/MyInput';
 import { mustAccept } from '../validators';

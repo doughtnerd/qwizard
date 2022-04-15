@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@qwizard/core": ["packages/core/src/index.ts"],
-      "@qwizard/react": ["packages/react/src/index.ts"]
+      "@doughtnerd/qwizard-core": ["packages/core/src/index.ts"],
+      "@doughtnerd/qwizard-react": ["packages/react/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

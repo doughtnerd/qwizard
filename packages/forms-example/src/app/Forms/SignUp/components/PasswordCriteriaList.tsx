@@ -1,5 +1,5 @@
 import React from 'react'
-import { ValidationErrors } from '@qwizard/core';
+import { ValidationErrors } from '@doughtnerd/qwizard-core';
 
 export function PasswordCriteriaList({
   hasValidated,

@@ -1,4 +1,4 @@
-import { ValidationResults } from "@qwizard/core";
+import { ValidationResults } from "@doughtnerd/qwizard-core";
 import { ForwardedRef, ForwardRefExoticComponent, LegacyRef, MutableRefObject, RefAttributes } from "react";
 
 export type DefaultInputProps = { 

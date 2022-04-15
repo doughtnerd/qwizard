@@ -1,4 +1,4 @@
-import { FormArrayWithValidators as FormArrayModel, isFormArray, isFormControl, isFormGroup, validateFormArray, ValidationErrors, ValidationResultsTree } from '@qwizard/core'
+import { FormArrayWithValidators as FormArrayModel, isFormArray, isFormControl, isFormGroup, validateFormArray, ValidationErrors, ValidationResultsTree } from '@doughtnerd/qwizard-core'
 import React from 'react'
 import { AbstractFormControlConfig } from '.'
 import { FormArrayRenderFn, FormControlInputEvents } from '../types/input-config.types'

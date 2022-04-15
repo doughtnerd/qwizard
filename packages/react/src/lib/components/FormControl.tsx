@@ -1,4 +1,4 @@
-import { FormControlWithValidators as FormControlModel, validateFormControl, ValidationError, ValidationResults } from '@qwizard/core';
+import { FormControlWithValidators as FormControlModel, validateFormControl, ValidationError, ValidationResults } from '@doughtnerd/qwizard-core';
 import React, { LegacyRef } from 'react';
 import { FormControlInputEvents } from '../types/input-config.types';
 import { DefaultInputProps, WithInputRef } from '../types/withInputRef.type';

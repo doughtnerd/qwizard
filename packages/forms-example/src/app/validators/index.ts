@@ -10,7 +10,7 @@ import {
   ValidationError,
   ValidationErrors,
   ValidatorArgumentError,
-} from "@qwizard/core";
+} from "@doughtnerd/qwizard-core";
 
 export const exampleFormGroupValidator: FormGroupValidatorFn = (
   input: AbstractControl

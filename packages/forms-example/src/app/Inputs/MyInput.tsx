@@ -1,5 +1,5 @@
 import { ForwardedRef, InputHTMLAttributes } from "react"
-import { WithInputRef, DefaultInputProps } from "@qwizard/react"
+import { WithInputRef, DefaultInputProps } from "@doughtnerd/qwizard-react"
 
 export type MyInputProps = WithInputRef<
   InputHTMLAttributes<HTMLInputElement> &
