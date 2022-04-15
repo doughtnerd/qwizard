@@ -1,7 +1,7 @@
 {
-  "name": "@qwizard/react",
+  "name": "@doughtnerd/qwizard-react",
   "version": "0.0.1",
   "dependencies": {
-    "@qwizard/core": "0.0.1"
+    "@doughtnerd/qwizard-core": "0.0.1"
   }
 }
