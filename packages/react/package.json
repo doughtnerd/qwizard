@@ -1,8 +1,8 @@
 {
   "name": "@doughtnerd/qwizard-react",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "dependencies": {
-    "@doughtnerd/qwizard-core": "0.0.4"
+    "@doughtnerd/qwizard-core": "0.0.5"
   },
   "peerDependencies": {
     "react": ">= 16.0.0"

@@ -1,4 +1,4 @@
-import { isFormArray, isFormControl, isFormGroup, validateAbstractControl, validateFormControl, ValidationResultsTree } from '@doughtnerd/qwizard-core'
+import { isFormArray, isFormControl, isFormGroup, validateAbstractControl, validateFormArray, validateFormControl, validateFormGroup, ValidationResultsTree } from '@doughtnerd/qwizard-core'
 import React, { InputHTMLAttributes, PropsWithChildren } from 'react'
 import { AbstractFormControlConfig } from '.'
 import { FormArray, FormArrayConfig } from './FormArray'
@@ -27,15 +27,17 @@ export function Form(props: PropsWithChildren<FormConfig>): JSX.Element {
 
   let formUI;
   if (isFormControl(props.config)) {
-    props.config.renderData.onValidated = () => onChildValidated(validateFormControl)
+    props.config.renderData.onValidated = props.config.renderData.onValidated ? props.config.renderData.onValidated : () => onChildValidated(validateFormControl)
     formUI = <FormControl {...props.config} />
   }
 
   if (isFormArray(props.config)) {
+    props.config.renderData.onValidated = props.config.renderData.onValidated ? props.config.renderData.onValidated : () => onChildValidated(validateFormArray)
     formUI = <FormArray {...props.config as FormArrayConfig} />
   }
 
   if (isFormGroup(props.config)) {
+    props.config.renderData.onValidated = props.config.renderData.onValidated ? props.config.renderData.onValidated : () => onChildValidated(validateFormGroup)
     formUI = <FormGroup {...props.config as FormGroupConfig} />
   }
 

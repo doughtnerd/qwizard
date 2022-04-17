@@ -1,6 +1,6 @@
 import { FormGroupWithValidators as FormGroupModel, isFormArray, isFormControl, isFormGroup, validateFormGroup, ValidationErrors, ValidationResultsTree } from '@doughtnerd/qwizard-core'
 import React from 'react'
-import { AbstractFormControlConfig } from '.'
+import { AbstractFormControlConfig, FormControlConfig } from '.'
 import { FormControlInputEvents, FormGroupRenderFn } from '../types/input-config.types'
 import { DefaultInputProps, WithInputRef } from '../types/withInputRef.type'
 import { FormArray, FormArrayConfig } from './FormArray'
@@ -73,13 +73,13 @@ export function FormGroup(props: FormGroupConfig): JSX.Element {
         control.renderData.onValidated = () => onChildValidated(key)
         control.renderData.validateOn = v
         // eslint-disable-next-line no-prototype-builtins
-        control.renderData.inputProps = control.renderData.hasOwnProperty('inputProps') ? control.renderData.inputProps : props.renderData?.propsTemplate?.(key) ?? {}
-        return <FormControl key={key} {...control} renderComponent={control.renderComponent ?? props.renderData.componentTemplate}/>
+        ;(control as FormControlConfig).renderData.inputProps = control.renderData.hasOwnProperty('inputProps') ? (control as FormControlConfig).renderData.inputProps : props.renderData?.propsTemplate?.(key) ?? {}
+        return <FormControl key={key} {...control as FormControlConfig} renderComponent={control.renderComponent ?? props.renderData.componentTemplate}/>
       } 
       if(isFormGroup(control)) {
         control.renderData.onValidated = () => onChildValidated(key)
         control.renderData.validateOn = v
-        control.renderData.childrenFirst = props.renderData.childrenFirst
+        ;(control as FormGroupConfig).renderData.childrenFirst = props.renderData.childrenFirst
         return <FormGroup key={key} {...control as FormGroupConfig} />
       }
       if(isFormArray(control)) {
