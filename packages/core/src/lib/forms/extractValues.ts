@@ -21,7 +21,9 @@ export function getFormControlValue(control: FormControl): any {
 }
 
 export function getFormGroupValue(control: FormGroup): any {
-  return Object.entries(control.controls).reduce<any>((acc, [controlName, control]) => {
+  return Object.entries(control.controls).reduce<any>((acc, curr) => {
+    const [controlName, control] = curr
+
     if(isFormControl(control)) {
       acc[controlName] = getFormControlValue(control);
     }
@@ -31,6 +33,8 @@ export function getFormGroupValue(control: FormGroup): any {
     if(isFormArray(control)) {
       acc[controlName] = getFormArrayValue(control);
     }
+
+    return acc
   }, {})
 }
 
