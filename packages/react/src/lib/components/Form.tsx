@@ -1,4 +1,4 @@
-import { isFormArray, isFormControl, isFormGroup, validateAbstractControl, validateFormArray, validateFormControl, validateFormGroup, ValidationResultsTree } from '@doughtnerd/qwizard-core'
+import { getAbstractControlValue, isFormArray, isFormControl, isFormGroup, validateAbstractControl, validateFormArray, validateFormControl, validateFormGroup, ValidationResultsTree } from '@doughtnerd/qwizard-core'
 import React, { InputHTMLAttributes, PropsWithChildren } from 'react'
 import { AbstractFormControlConfig } from '.'
 import { FormArray, FormArrayConfig } from './FormArray'
@@ -22,7 +22,8 @@ export function Form(props: PropsWithChildren<FormConfig>): JSX.Element {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const errors = await validateAbstractControl(props.config)
-    props.onSubmit?.(new CustomEvent('submit', { detail: { errors, originalEvent: event } }))
+    const value = getAbstractControlValue(props.config)
+    props.onSubmit?.(new CustomEvent('submit', { detail: { errors, originalEvent: event, formValue: value } }))
   }
 
   let formUI;
