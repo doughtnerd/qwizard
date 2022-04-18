@@ -22,7 +22,7 @@ export function Form(props: PropsWithChildren<FormConfig>): JSX.Element {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const errors = await validateAbstractControl(props.config)
-    props.onSubmit?.(new CustomEvent('submit', { detail: { errors } }))
+    props.onSubmit?.(new CustomEvent('submit', { detail: { errors, originalEvent: event } }))
   }
 
   let formUI;
