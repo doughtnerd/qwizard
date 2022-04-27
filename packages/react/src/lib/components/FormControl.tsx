@@ -50,7 +50,7 @@ export function FormControl(
     currentRef.addEventListener('input', handleInput)
 
     return () => {
-      currentRef.addEventListener('input', handleInput)
+      currentRef.removeEventListener('input', handleInput)
     }
 
   }, [ref.current])
