@@ -85,10 +85,7 @@ export function SignUpForm() {
       },
       renderData: {
         childrenFirst: true,
-        onValidated: () => {
-          console.log("onValidated");
-        },
-      },
+      }
     }
   );
 
@@ -98,6 +95,7 @@ export function SignUpForm() {
         style: { display: "flex", flexDirection: "column", margin: "16px" },
       }}
       onSubmit={({detail}) => {console.log(detail)}}
+      onValidate={(e) => {console.log("onValidate", e)}}
       config={signUpForm}
     />
   );

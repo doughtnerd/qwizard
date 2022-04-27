@@ -37,12 +37,13 @@ export function createFormGroup(
 export function FormGroup(props: FormGroupConfig): JSX.Element {
   const [errors, setErrors] = React.useState<ValidationResultsTree>({ errors: {}, isValid: true })
   const [hasValidated, setHasValidated] = React.useState(false)
-
   const [validationEntries, setValidationEntries] = React.useState<Record<string, boolean>>(() => {
     return Object.keys(props.controls).reduce((acc, key) => { return { ...acc, [key]: false }}, {})
   })
+  const [hasValidatedOnce, setHasValidatedOnce] = React.useState(false)
 
   const onChildValidated = React.useCallback((entryKey: string) => {
+    setHasValidatedOnce(true)
     setValidationEntries((prev) => ({...prev, [entryKey]: true}))
   }, [setValidationEntries])
 
@@ -53,16 +54,19 @@ export function FormGroup(props: FormGroupConfig): JSX.Element {
       props.renderData.onValidated?.(validationErrors)
     }
 
-    if(props.renderData.childrenFirst) {
-      const hasGroupValidated = Object.values(validationEntries).every((value) => value === true)
-      if(hasGroupValidated) {
+    if(hasValidatedOnce) {
+      if(props.renderData.childrenFirst) {
+        const hasGroupValidated = Object.values(validationEntries).every((value) => value === true)
+        if(hasGroupValidated) {
+          validate()
+          setHasValidated(hasGroupValidated)
+        }
+      } else {
         validate()
-        setHasValidated(hasGroupValidated)
+        setHasValidated(true)
       }
-    } else {
-      validate()
-      setHasValidated(true)
     }
+
   }, [validationEntries])
 
   const controls = Object.entries(props.controls)
