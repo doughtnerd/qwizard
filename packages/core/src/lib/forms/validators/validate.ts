@@ -7,13 +7,22 @@ import { FormGroupWithValidators, isFormGroup } from '../elements/FormGroup';
 import { ValidationErrors } from "./errors";
 import { ValidatorFn } from './validator.types';
 
+/**
+ * Type that represents the validation results of the entire tree of controls.
+ */
 export type ValidationResultsTree = ValidationEntryMap & ValidationResults
 
+/**
+ * Type that represents the validation results of a single control.
+ */
 export type ValidationResults = {
   errors: ValidationErrors
   isValid: boolean
 }
 
+/**
+ * Type that represents the validation results of a subtree of controls.
+ */
 export type ValidationEntryMap = {
   [controlName: string]: ValidationResultsTree
 } | Record<string, any>
@@ -35,6 +44,14 @@ function runSyncValidators(control: any, validators: ValidatorFn[]): ValidationR
   }, { errors: {}, isValid: true })
 }
 
+/**
+ * Validates the entire tree of controls.
+ * Async validators are run first, then sync validators are run.
+ * The results are combined into a single ValidationResultsTree.
+ * 
+ * @param form The AbstractControl to validate
+ * @returns a Promise containing the validation results.
+ */
 export function validateAbstractControl(form: AbstractControlWithValidators): Promise<ValidationResultsTree> {
   if(isFormArray(form)) {
     return validateFormArray(form)
@@ -48,6 +65,14 @@ export function validateAbstractControl(form: AbstractControlWithValidators): Pr
   throw new Error('validateAbstractControl: Expected control to be a form group, form control, or form array')
 }
 
+/**
+ * Validates a FormControl.
+ * Async validators are run first, then sync validators are run.
+ * The results are combined into a single ValidationResultsTree.
+ * 
+ * @param control the FormControl to validate
+ * @returns a Promise containing the validation results.
+ */
 export async function validateFormControl(control: FormControlWithValidators): Promise<ValidationResults> {
   const asyncValidationResults = runAsyncValidators(control, control.asyncValidators)
   
@@ -58,6 +83,14 @@ export async function validateFormControl(control: FormControlWithValidators): P
   return { errors: { ...validationResults.errors, ...awaitedValidationResults.errors }, isValid: validationResults.isValid && awaitedValidationResults.isValid }
 }
 
+/**
+ * Validates a FormArray.
+ * Async validators are run first, then sync validators are run.
+ * The results are combined into a single ValidationResultsTree.
+ * 
+ * @param control the FormArray to validate
+ * @returns a Promise containing the validation results.
+ */
 export async function validateFormArray(control: FormArrayWithValidators, onlySelf = false): Promise<ValidationResultsTree> {
   const asyncValidationResults = runAsyncValidators(control, control.asyncValidators)
 
@@ -92,6 +125,14 @@ export async function validateFormArray(control: FormArrayWithValidators, onlySe
   return { errors: { ...validationResults.errors, ...awaitedValidationResults.errors }, ...childValidationMap, isValid: isArrayValid }
 }
 
+/**
+ * Validates a FormGroup.
+ * Async validators are run first, then sync validators are run.
+ * The results are combined into a single ValidationResultsTree.
+ * 
+ * @param control the FormGroup to validate
+ * @returns a Promise containing the validation results.
+ */
 export async function validateFormGroup(control: FormGroupWithValidators, onlySelf = false): Promise<ValidationResultsTree> {
   const asyncValidationResults = runAsyncValidators(control, control.asyncValidators)
 

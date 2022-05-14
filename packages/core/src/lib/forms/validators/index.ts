@@ -4,6 +4,9 @@ import { notEmptyValidator } from './notEmptyValidator';
 import { notNullValidator } from './notNullValidator';
 import { regexValidator } from './regexValidator';
 
+/**
+ * Helper object that contains all built-in validators.
+ */
 export const Validators = {
   notEmpty: notEmptyValidator,
   notNull: notNullValidator,
