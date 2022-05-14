@@ -6,6 +6,26 @@ import { DefaultInputProps, WithInputRef } from '../types/withInputRef.type'
 import { FormArray, FormArrayConfig } from './FormArray'
 import { FormControl } from './FormControl'
 
+/**
+ * @typedef {Object} FormGroupRenderDataDef Render data used by FormGroupConfig
+ * @property {Function} renderData.componentTemplate If all elements on the form group use the same component, you can set this to the component. The library will use this function to render all FormControls and pass the return value of `propsTemplate` to the function.
+ * @property {Function} renderData.propsTemplate If you choose to use `componentTemplate`, this function will be used to provide props to the component.
+ * @property {FormControlInputEvents} renderData.validateOn When the FormControls (if any) on the formGroup should be validated.
+ * @property {Function} renderData.onValidated Callback that will be called when the FormGroup has validated.
+ * @property {boolean} renderData.childrenFirst Whether or not the group should wait until **ALL** children have validated before validating itself.
+ */
+
+/**
+ * Type the defines the props of the FormGroup component.
+ * 
+ * @property {Function} renderComponent the function to use to render the FormGroup component. If not supplied, defaults to rendering the children of the FormGroupConfig directly.
+ * @property {FormGroupRenderDataDef} renderData That config data that will be used when rendering the component.
+ * @property {Function} renderData.componentTemplate If all elements on the form group use the same component, you can set this to the component. The library will use this function to render all FormControls and pass the return value of `propsTemplate` to the function.
+ * @property {Function} renderData.propsTemplate If you choose to use `componentTemplate`, this function will be used to provide props to the component.
+ * @property {FormControlInputEvents} renderData.validateOn When the FormControls (if any) on the formGroup should be validated.
+ * @property {Function} renderData.onValidated Callback that will be called when the FormGroup has validated.
+ * @property {boolean} renderData.childrenFirst Whether or not the group should wait until **ALL** children have validated before validating itself.
+ */
 export type FormGroupRenderProps = {
   renderComponent?: FormGroupRenderFn
   renderData: {
@@ -17,8 +37,22 @@ export type FormGroupRenderProps = {
   }
 }
 
+/**
+ * Union type between FormGroup and FormGroupRenderProps
+ */
 export type FormGroupConfig = Omit<FormGroupModel, 'controls'> & { controls: {[key: string]: AbstractFormControlConfig }} & FormGroupRenderProps
 
+/**
+ * Constructor function to make a FormGroupConfig.
+ * 
+ * @param controls The controls that the FormGroupConfig will contain.
+ * @param config The config that will be used to render the FormGroup.
+ * @param validators The validators the FormGroupConfig will use. Defaults to an empty array.
+ * @param asyncValidators The async Validators the FormGroupConfig will use. Defaults to an empty array.
+ * @returns A FormGroupConfig.
+ * 
+ * @see FormGroupRenderProps
+ */
 export function createFormGroup(
   controls: FormGroupConfig['controls'], 
   config: FormGroupRenderProps,
@@ -34,6 +68,9 @@ export function createFormGroup(
   }
 }
 
+/**
+ * **DON'T USE THIS FUNCTION DIRECTLY**
+ */
 export function FormGroup(props: FormGroupConfig): JSX.Element {
   const [errors, setErrors] = React.useState<ValidationResultsTree>({ errors: {}, isValid: true })
   const [hasValidated, setHasValidated] = React.useState(false)
