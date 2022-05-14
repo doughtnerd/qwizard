@@ -3,9 +3,6 @@ import React from 'react';
 import { MyInput } from '../Inputs/MyInput';
 import { mustAccept } from '../validators';
 
-
-
-
 function TocFormComponent({children}: any): JSX.Element {
   return (
     <>

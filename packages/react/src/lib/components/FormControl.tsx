@@ -8,6 +8,7 @@ export type FormControlProps = {
   renderData: {
     inputProps?: Record<string | number | symbol, any>
     validateOn?: FormControlInputEvents
+    enableNativeValidation?: boolean
     onValidated?: (validationResults: ValidationResults) => void
   }
 }
@@ -61,13 +62,18 @@ export function FormControl(
     async function validate() {
       const validationResults = await validateFormControl(props)
       const firstError = Object.values(validationResults.errors).find((error) => error)
-      currentRef.setCustomValidity((firstError as Error)?.message ?? '')
-      const validityState: ValidityState = currentRef.validity
-      for(const key in validityState) {
-        if(key!=='valid' && key !== 'customError' && Reflect.has(validityState, key) && Reflect.get(validityState, key) === true) {
-          (validationResults.errors as any)[key] = new ValidationError(currentRef.validationMessage)
+
+      if(props.renderData.enableNativeValidation) {
+        currentRef.setCustomValidity((firstError as Error)?.message ?? '')
+
+        const validityState: ValidityState = currentRef.validity
+        for(const key in validityState) {
+          if(key!=='valid' && key !== 'customError' && Reflect.has(validityState, key) && Reflect.get(validityState, key) === true) {
+            (validationResults.errors as any)[key] = new ValidationError(currentRef.validationMessage)
+          }
         }
       }
+
       props.renderData?.onValidated?.(validationResults)
       setErrors(validationResults)
     }

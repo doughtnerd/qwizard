@@ -34,6 +34,7 @@ export function SignUpForm() {
               labelText: "Username",
             },
             validateOn: "blur",
+            enableNativeValidation: true
           },
         },
         [],
