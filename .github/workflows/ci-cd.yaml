@@ -76,5 +76,5 @@ jobs:
       - name: Publish
         uses: mansagroup/nrwl-nx-action@v2
         with:
-          targets: publish-ci
+          targets: build,publish-ci
           affected: true
