@@ -14,6 +14,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
       - name: Lint
         uses: mansagroup/nrwl-nx-action@v2
         with:
@@ -28,6 +29,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
       - name: Test
         uses: mansagroup/nrwl-nx-action@v2
         with:
@@ -42,6 +44,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
       - name: Build
         uses: mansagroup/nrwl-nx-action@v2
         with:
@@ -60,6 +63,7 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - run: npm install
       - name: Build
         uses: mansagroup/nrwl-nx-action@v2
         with:
