@@ -258,6 +258,68 @@ describe('#validateFormArray', () => {
   
     expect(validationResult).toEqual(expectedErrorsObject)
   })
+
+  it('Should validate correctly when controls are added', async () => {
+    const formArray = Form.Array([], [])
+
+    let validationResult = await validateFormArray(formArray)
+
+    const expectedErrorsObject = {
+      errors: {},
+      isValid: true
+    }
+
+    expect(validationResult).toEqual(expectedErrorsObject)
+
+    formArray.controls.push(Form.Control('', [Validators.notEmpty as FormControlValidatorFn]))
+
+    validationResult = await validateFormArray(formArray)
+
+    const expectedErrorsObject2 = {
+      errors: {},
+      isValid: false,
+      0: {
+        errors: {
+          notEmpty: expect.any(ValidationError)
+        },
+        isValid: false
+      }
+    }
+
+    expect(validationResult).toEqual(expectedErrorsObject2)
+  })
+
+  it('Should validate correctly when controls are removed', async () => {
+    const formArray = Form.Array([
+      Form.Control('', [Validators.notEmpty as FormControlValidatorFn])
+    ])
+
+    let validationResult = await validateFormArray(formArray)
+
+    const expectedErrorsObject = {
+      errors: {},
+      isValid: false,
+      0: {
+        errors: {
+          notEmpty: expect.any(ValidationError)
+        },
+        isValid: false
+      }
+    }
+
+    expect(validationResult).toEqual(expectedErrorsObject)
+
+    formArray.controls.pop()
+
+    validationResult = await validateFormArray(formArray)
+
+    const expectedErrorsObject2 = {
+      errors: {},
+      isValid: true,
+    }
+
+    expect(validationResult).toEqual(expectedErrorsObject2)
+  })
 })
 
 describe('#validateFormControl', () => {

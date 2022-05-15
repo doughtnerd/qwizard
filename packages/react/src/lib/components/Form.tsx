@@ -5,6 +5,9 @@ import { FormArray, FormArrayConfig } from './FormArray'
 import { FormControl } from './FormControl'
 import { FormGroup, FormGroupConfig } from './FormGroup'
 
+/**
+ * 
+ */
 export type FormConfig = {
   config: AbstractFormControlConfig
   formProps?: InputHTMLAttributes<HTMLFormElement>
