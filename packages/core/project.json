@@ -26,6 +26,13 @@
         "jestConfig": "packages/core/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "publish-ci": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "npm publish --access public",
+        "cwd": "dist/packages/core"
+      }
     }
   },
   "tags": []

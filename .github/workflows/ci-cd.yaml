@@ -19,7 +19,7 @@ jobs:
         uses: mansagroup/nrwl-nx-action@v2
         with:
           targets: lint
-          projects: core 
+          affected: true
 
   test:
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
         uses: mansagroup/nrwl-nx-action@v2
         with:
           targets: test
-          projects: core 
+          affected: true
 
 
   build:
@@ -50,7 +50,7 @@ jobs:
         uses: mansagroup/nrwl-nx-action@v2
         with:
           targets: build
-          projects: core 
+          affected: true
 
   publish:
     runs-on: ubuntu-latest
@@ -68,9 +68,6 @@ jobs:
       - name: Build
         uses: mansagroup/nrwl-nx-action@v2
         with:
-          targets: build
-          projects: core 
-      - run: npm publish --access public
-        working-directory: dist/packages/core
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          targets: publish-ci
+          affected: true
+          args: --NODE_AUTH_TOKEN=${{ secrets.NPM_TOKEN }}
