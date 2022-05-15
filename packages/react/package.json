@@ -1,9 +1,9 @@
 {
   "name": "@doughtnerd/qwizard-react",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "license": "MIT",
   "dependencies": {
-    "@doughtnerd/qwizard-core": "0.0.16"
+    "@doughtnerd/qwizard-core": "0.0.17"
   },
   "peerDependencies": {
     "react": ">= 16.0.0"

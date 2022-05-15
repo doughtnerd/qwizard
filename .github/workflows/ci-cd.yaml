@@ -73,8 +73,18 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-      - name: Publish
+      - name: Build
         uses: mansagroup/nrwl-nx-action@v2
         with:
-          targets: build,publish-ci
+          targets: build
           affected: true
+        run: |
+          for LIBRARY in $(npm run nx affected:libs --base=$last_version --head=$current_version --plain | awk 'NR > 2 && $1 != "Done" { print $1 }')
+          do
+            cd ./dist/packages/$LIBRARY
+            npm publish --access public
+            cd ..
+            cd ..
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
