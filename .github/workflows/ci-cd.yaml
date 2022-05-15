@@ -78,7 +78,7 @@ jobs:
         with:
           targets: build
           affected: true
-        run: |
+      - run: |
           for LIBRARY in $(npm run nx affected:libs --base=$last_version --head=$current_version --plain | awk 'NR > 2 && $1 != "Done" { print $1 }')
           do
             cd ./dist/packages/$LIBRARY
@@ -87,4 +87,4 @@ jobs:
             cd ..
           done
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
