@@ -73,7 +73,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-      - name: Build
+      - name: Publish
         uses: mansagroup/nrwl-nx-action@v2
         with:
           targets: publish-ci
