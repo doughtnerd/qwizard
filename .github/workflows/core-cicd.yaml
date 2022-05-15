@@ -1,9 +1,6 @@
 
 on:
   push:
-    paths: 
-      - .github/workflows/core-cicd.yaml
-      - packages/core/**
     branches: 
       - master
 
@@ -36,6 +33,7 @@ jobs:
         with:
           targets: test
           projects: core 
+
 
   build:
     runs-on: ubuntu-latest

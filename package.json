@@ -2,7 +2,9 @@
   "name": "qwizard",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "nx": "nx"
+  },
   "private": true,
   "dependencies": {
     "core-js": "^3.6.5",
