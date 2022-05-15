@@ -78,4 +78,3 @@ jobs:
         with:
           targets: publish-ci
           affected: true
-          args: --NODE_AUTH_TOKEN=${{ secrets.NPM_TOKEN }}
