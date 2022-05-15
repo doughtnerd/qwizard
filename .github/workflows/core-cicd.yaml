@@ -70,7 +70,8 @@ jobs:
         with:
           targets: build
           projects: core 
-      - run: cd dist/packages/core
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: JS-DevTools/npm-publish@v1
+        working-directory: dist/packages/core/
+        with:
+          access: public
+          token: ${{ secrets.NPM_TOKEN }}
