@@ -199,6 +199,7 @@ function regexValidator(regex: RegExp): ValidatorFn {
 }
 ```
 
+
 ---
 ## Building
 
