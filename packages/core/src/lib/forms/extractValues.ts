@@ -1,7 +1,13 @@
-import { FormGroup, isFormGroup } from './elements/FormGroup';
-import { FormControl, isFormControl } from './elements/FormControl';
-import { AbstractControl, FormArray, isFormArray } from '.';
+import { FormGroup, FormGroupWithValidators, isFormGroup } from './elements/FormGroup';
+import { createFormControl, FormControl, FormControlWithValidators, isFormControl } from './elements/FormControl';
+import { AbstractControl, FormArray, FormArrayWithValidators, isFormArray } from '.';
 
+
+/**
+ * The value of an AbstractControl
+ */
+ type AbstractFormControlValue = FormControlValue | FormArrayValue | FormGroupValue
+ 
 /**
  * The value of a FormControl
  */
@@ -16,11 +22,6 @@ type FormArrayValue = AbstractFormControlValue[]
  * The value of a FormGroup
  */
 type FormGroupValue = { [key: string]: AbstractFormControlValue }
-
-/**
- * The value of an AbstractControl
- */
-type AbstractFormControlValue = FormControlValue | FormArrayValue | FormGroupValue
 
 /**
  * Returns the value of an AbstractControl, including all of its children.
@@ -90,4 +91,76 @@ export function getFormArrayValue(control: FormArray): FormArrayValue {
       return getFormArrayValue(control);
     }
   })
+}
+
+export function setFormGroupValue(control: FormGroup, value: FormGroupValue): FormGroupWithValidators {
+  return Object.entries(control.controls).reduce<FormGroupWithValidators>((prev: FormGroupWithValidators, [controlName, control]) => {
+    if(isFormControl(control)) {
+      prev.controls[controlName] = setFormControlValue(control as FormControlWithValidators, value[controlName] ?? undefined);
+    }
+    if(isFormGroup(control)) {
+      prev.controls[controlName] = setFormGroupValue(control as FormGroupWithValidators, value[controlName] ?? undefined);
+    }
+    if(isFormArray(control)) {
+      prev.controls[controlName] = setFormArrayValue(control as FormArrayWithValidators, value[controlName] ?? undefined);
+    }
+
+    return prev
+  }, {} as FormGroupWithValidators)
+}
+
+export function setFormArrayValue(control: FormArrayWithValidators, values: FormArrayValue): FormArrayWithValidators {
+  return control.controls.reduce((prev: FormArrayWithValidators, curr, index) => {
+    if(isFormControl(curr)) {
+      prev.controls[index] = setFormControlValue(curr as FormControlWithValidators, values[index] ?? undefined);
+    }
+    if(isFormGroup(curr)) {
+      prev.controls[index] = setFormGroupValue(curr as FormGroupWithValidators, values[index] ?? undefined);
+    }
+    if(isFormArray(curr)) {
+      prev.controls[index] = setFormArrayValue(curr as FormArrayWithValidators, values[index] ?? undefined);
+    }
+
+    return prev
+  }, {} as FormArrayWithValidators)
+}
+
+export function setFormControlValue(control: FormControlWithValidators, value?: FormControlValue): FormControlWithValidators {
+  return createFormControl(value, control.validators, control.asyncValidators)
+}
+
+export function patchFormArrayValue(control: FormArrayWithValidators, values: FormArrayValue): FormArrayWithValidators {
+  return control.controls.reduce((prev: FormArrayWithValidators, curr, index) => {
+    if(isFormControl(curr)) {
+      prev.controls[index] = setFormControlValue(curr as FormControlWithValidators, values?.[index]);
+    }
+    if(isFormGroup(curr)) {
+      prev.controls[index] = setFormGroupValue(curr as FormGroupWithValidators, values?.[index]);
+    }
+    if(isFormArray(curr)) {
+      prev.controls[index] = setFormArrayValue(curr as FormArrayWithValidators, values?.[index]);
+    }
+
+    return prev
+  }, {} as FormArrayWithValidators)
+}
+
+export function patchFormGroupValue(control: FormGroupWithValidators, value?: FormGroupValue): FormGroupWithValidators {
+  return Object.entries(control.controls).reduce<FormGroupWithValidators>((prev: FormGroupWithValidators, [controlName, control]) => {
+    if(isFormControl(control)) {
+      prev.controls[controlName] = patchFormControlValue(control as FormControlWithValidators, value?.[controlName]);
+    }
+    if(isFormGroup(control)) {
+      prev.controls[controlName] = patchFormGroupValue(control as FormGroupWithValidators, value?.[controlName]);
+    }
+    if(isFormArray(control)) {
+      prev.controls[controlName] = patchFormArrayValue(control as FormArrayWithValidators, value?.[controlName]);
+    }
+
+    return prev
+  }, {} as FormGroupWithValidators)
+}
+
+export function patchFormControlValue(control: FormControlWithValidators, value?: FormControlValue): FormControlWithValidators {
+  return createFormControl(value ?? control.control.value, control.validators, control.asyncValidators)
 }
