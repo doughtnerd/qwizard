@@ -2,6 +2,7 @@
 on:
   push:
     paths: 
+      - .github/workflows/core-cicd.yaml
       - packages/core/**
     branches: 
       - master
