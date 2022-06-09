@@ -1,5 +1,5 @@
 {
-  "root": "packages/forms-example",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/forms-example/src",
   "projectType": "application",
   "targets": {
@@ -37,6 +37,12 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false
+        },
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
         }
       }
     },
@@ -50,8 +56,12 @@
         "production": {
           "buildTarget": "forms-example:build:production",
           "hmr": false
+        },
+        "development": {
+          "buildTarget": "forms-example:build:development"
         }
-      }
+      },
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -64,7 +74,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/forms-example"],
       "options": {
-        "jestConfig": "packages/forms-example/jest.config.js",
+        "jestConfig": "packages/forms-example/jest.config.ts",
         "passWithNoTests": true
       }
     }

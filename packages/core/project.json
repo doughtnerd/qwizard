@@ -1,5 +1,5 @@
 {
-  "root": "packages/core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/core/src",
   "targets": {
     "build": {
@@ -23,12 +23,12 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/packages/core"],
       "options": {
-        "jestConfig": "packages/core/jest.config.js",
+        "jestConfig": "packages/core/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "publish-ci": {
-      "builder": "@nrwl/workspace:run-commands",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "npm publish --access public",
         "cwd": "dist/packages/core"

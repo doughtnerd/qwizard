@@ -5,5 +5,6 @@
     "forms-example": "packages/forms-example",
     "forms-example-e2e": "packages/forms-example-e2e",
     "react": "packages/react"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

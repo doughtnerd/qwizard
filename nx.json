@@ -1,5 +1,5 @@
 {
-  "extends": "@nrwl/workspace/presets/core.json",
+  "extends": "nx/presets/core.json",
   "npmScope": "qwizard",
   "affected": {
     "defaultBase": "main"
@@ -9,9 +9,14 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -31,5 +36,6 @@
       }
     }
   },
-  "defaultProject": "forms-example"
+  "defaultProject": "forms-example",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }
