@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@doughtnerd/qwizard-core": ["packages/core/src/index.ts"],
-      "@doughtnerd/qwizard-react": ["packages/react/src/index.ts"]
+      "@doughtnerd/qwizard-react": ["packages/react/src/index.ts"],
+      "@doughtnerd/qwizard-svelte": ["packages/svelte/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

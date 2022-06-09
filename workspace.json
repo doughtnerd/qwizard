@@ -4,7 +4,10 @@
     "core": "packages/core",
     "forms-example": "packages/forms-example",
     "forms-example-e2e": "packages/forms-example-e2e",
-    "react": "packages/react"
+    "react": "packages/react",
+    "svelte": "packages/svelte",
+    "svelte-example": "packages/svelte-example",
+    "svelte-example-e2e": "packages/svelte-example-e2e"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
