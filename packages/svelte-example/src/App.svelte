@@ -1,10 +1,18 @@
 <script lang="ts">
+	import { Form } from '@doughtnerd/qwizard-core'
+import FormControl from './FormControl.svelte';
+import Test from './Test.svelte';
+
+	const config = Form.Control('Hello')
+
+	$: display = config.control.value
+
 	export let name: string;
 </script>
 
 <main>
-	<h1>Welcome {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<FormControl component={Test} {config}/>
+	{display}
 </main>
 
 <style>
